@@ -31,4 +31,17 @@ jobs:
               whoami
               ls -al
               echo $RSYNC_STDOUT
-        
+
+     - name: executing remote ssh commands using password
+       uses: appleboy/ssh-action@master
+       with:
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY}}
+        port: 22
+        script: |
+            export HOST=${{ secrets.DBHOST }}
+            export USER=${{ secrets.DBUSER }}
+            export PASSWORD=${{ secrets.DBPASSWORD }}
+            export DBNAME=${{ secrets.DBNAME }}
+            export PORT=${{ secrets.PORT }}
